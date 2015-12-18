@@ -6,19 +6,20 @@ function depthCompare(a,b) {
   return 0;
 }
 
-function Vue () {
+function Vue (model) {
     this.renderer = PIXI.autoDetectRenderer(800, 600,{backgroundColor : 0xE42217});
     document.body.appendChild(this.renderer.view);
 
     // create the root of the scene graph
     this.stage = new PIXI.Container();
+    this.model = model;
 
     this.loadCount = 0;
 }
 
 Vue.prototype = {
-    load: function (callback) {
-        this.loadLevel (Assets.level1);
+    load: function (level, callback) {
+        this.loadLevel (level);
         this.loadCharacter ();
         callback();
     },
@@ -26,12 +27,13 @@ Vue.prototype = {
     loadCharacter: function () {
         var texture = PIXI.loader.resources.character.texture;
         this.character = new PIXI.Sprite(texture);
+        
         // center the sprite's anchor point
         this.character.anchor.x = 0.5;
         this.character.anchor.y = 0.5;
         // move the sprite to the center of the screen
-        this.character.position.x = (this.renderer.width - this.character.width)/2;
-        this.character.position.y = (this.renderer.height - this.character.height)/2;
+        this.character.position.x = this.renderer.width/2;
+        this.character.position.y = this.renderer.height/2;
 
         this.character.z = 23;
 
@@ -42,8 +44,9 @@ Vue.prototype = {
     loadLevel: function (level) {
         var text = PIXI.loader.resources.background.texture;
         this.background = new PIXI.extras.TilingSprite (text, text.width, text.height);
-        this.background.position.x = 100;
-        this.background.position.y = 200;
+
+        model.x = this.renderer.width/2 - level.startX;
+        model.y = this.renderer.height/2 - level.startY;
 
         this.background.z = 20;
         this.stage.addChild (this.background);
@@ -57,10 +60,8 @@ Vue.prototype = {
         animate();
         function animate() {
             controler.update (function (model) {
-                that.background.position.x -= model.dx;
-                that.background.position.y -= model.dy;
-                model.dx = 0;
-                model.dy = 0;
+                that.background.position.x = model.x;
+                that.background.position.y = model.y;
             });
             requestAnimationFrame(animate);
 
@@ -73,5 +74,5 @@ Vue.prototype = {
 
 var vue = new Vue ();
 Assets.load (function () {
-    vue.load (vue.startAnimation);
+    vue.load (Assets.level1, vue.startAnimation);
 });

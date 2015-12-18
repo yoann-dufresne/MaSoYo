@@ -1,10 +1,10 @@
 
 function Model () {
-	this.vx = 100;
-	this.vy = 100;
+	this.x = 0;
+	this.y = 0;
 
-	this.dx = 0;
-	this.dy = 0;
+	this.vx = 150;
+	this.vy = 150;
 }
 
 var model = new Model ();
