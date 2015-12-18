@@ -1,0 +1,11 @@
+Code :
+1 - Add a functionnal event layer
+2 - Add default event when the player fall
+2 - Add a colider event
+3 - Create a score (the time from the beginning to the end)
+3 - Add a winning event
+4 - Create a database (MongoDB)
+4 - Screate a scoreboard
+
+Design :
+- Design the hero ball with animations
