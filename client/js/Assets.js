@@ -1,11 +1,11 @@
 var Assets = {
-	tileSize: 20,
+	tileSize: 50,
 	level1: {
 		// General
-		width: 20,
-		height: 5,
+		width: 8,
+		height: 2,
 		startX: 1,
-		startY: 2.5,
+		startY: 1,
 		// Assets
 		graphics: {
 			background: 'assets/levels/easy_bg.png'

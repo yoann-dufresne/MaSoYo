@@ -60,7 +60,6 @@ Vue.prototype = {
         animate();
         function animate() {
             controler.update (function (model) {
-                // N'importe quoi !!!
                 that.background.position.x = that.renderer.width/2 - (model.x * Assets.tileSize);
                 that.background.position.y = that.renderer.height/2 - (model.y * Assets.tileSize);
                 events.base ({x: model.x, y: model.y});

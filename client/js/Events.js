@@ -1,15 +1,15 @@
 
 var events = {
 	base: function (coords) {
-		var x = Math.round(coords.x);
-		var y = Math.round(coords.y);
-		console.log(coords.x + " " + coords.y + " : " + x + " " + y);
+		var x = Math.floor(coords.x);
+		var y = Math.floor(coords.y);
+		//console.log(coords.x + " " + coords.y + " : " + x + " " + y);
 	},
 
-	lava: function (from) {
+	lava: function (coords) {
 		
 	},
-	wall: function (from) {
+	wall: function (coords) {
 
 	}
 };

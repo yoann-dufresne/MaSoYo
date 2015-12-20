@@ -6,6 +6,7 @@ function Controler (input, model) {
 
 Controler.prototype = {
 	update: function (callback) {
+		// Move the character
 		var time = Date.now();
 		var durationX =
 			this.input.right * (time - this.input.rightTime) -
@@ -21,6 +22,8 @@ Controler.prototype = {
 
 		this.model.x += this.model.vx * (durationX / 1000);
 		this.model.y += this.model.vy * (durationY / 1000);
+
+		// Trigger the events functions
 
 		callback (model);
 	}
