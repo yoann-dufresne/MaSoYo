@@ -23,17 +23,27 @@ Controler.prototype = {
 	update: function (callback) {
 		// Move the character
 		var time = Date.now();
-		var durationX =
-			this.input.right * (time - this.input.rightTime) -
-			this.input.left * (time - this.input.leftTime);
-		var durationY =
-			this.input.down * (time - this.input.downTime) -
-			this.input.up * (time - this.input.upTime);
+
+		var durationX = 0;
+		var durationY = 0;
+		if (this.input.active) {
+			durationX =
+				this.input.right * (time - this.input.rightTime) -
+				this.input.left * (time - this.input.leftTime);
+			durationY =
+				this.input.down * (time - this.input.downTime) -
+				this.input.up * (time - this.input.upTime);
+		}
 
 		this.input.upTime = time;
 		this.input.downTime = time;
 		this.input.leftTime = time;
 		this.input.rightTime = time;
+
+		if (!this.input.active) {
+			callback (model);
+			return;
+		}
 
 		var prevX = this.model.x;
 		var prevY = this.model.y;

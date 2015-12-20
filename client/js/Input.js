@@ -8,6 +8,8 @@ function Input () {
 	this.rightTime = 0;
 	this.down = false;
 	this.downTime = 0;
+
+	this.active = true;
 }
 
 
