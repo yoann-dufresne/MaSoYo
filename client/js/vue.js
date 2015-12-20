@@ -42,11 +42,10 @@ Vue.prototype = {
     },
 
     loadLevel: function (level) {
+        controler.loadLevel (level);
+
         var text = PIXI.loader.resources.background.texture;
         this.background = new PIXI.extras.TilingSprite (text, text.width, text.height);
-
-        model.x = level.startX;
-        model.y = level.startY;
 
         this.background.z = 1;
         this.stage.addChild (this.background);

@@ -5,6 +5,21 @@ function Controler (input, model) {
 }
 
 Controler.prototype = {
+	loadLevel: function (level) {
+		var that = this;
+
+		this.model.x = level.startX;
+        this.model.y = level.startY;
+
+        // Load events
+        this.model.events = [];
+        for (var i=-1 ; i<=level.width ; i++)
+        	this.model.events[i] = [];
+        level.events.forEach (function (elt) {
+        	that.model.events[elt[0]][elt[1]] = elt[2];
+        });
+	},
+
 	update: function (callback) {
 		// Move the character
 		var time = Date.now();
@@ -20,10 +35,22 @@ Controler.prototype = {
 		this.input.leftTime = time;
 		this.input.rightTime = time;
 
+		var prevX = this.model.x;
+		var prevY = this.model.y;
 		this.model.x += this.model.vx * (durationX / 1000);
 		this.model.y += this.model.vy * (durationY / 1000);
 
 		// Trigger the events functions
+		var x = Math.floor (this.model.x);
+		var y = Math.floor (this.model.y);
+		if (this.model.events[x] != undefined && this.model.events[x][y] != undefined)
+			this.model.events[x][y]({
+				x: this.model.x,
+				y: this.model.y,
+				prevX: Math.floor(prevX),
+				prevY: Math.floor(prevY),
+				model: model
+			});
 
 		callback (model);
 	}

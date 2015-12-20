@@ -5,6 +5,8 @@ function Model () {
 
 	this.vx = 3;
 	this.vy = 3;
+
+	this.events = [];
 }
 
 var model = new Model ();
