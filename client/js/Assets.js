@@ -4,8 +4,8 @@ var Assets = {
 		// General
 		width: 8,
 		height: 2,
-		startX: 1,
-		startY: 1,
+		startX: 0.5,
+		startY: 0.5,
 		// Assets
 		graphics: {
 			background: 'assets/levels/easy_bg.png'
