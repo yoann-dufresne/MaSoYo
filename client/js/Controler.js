@@ -47,8 +47,8 @@ Controler.prototype = {
 			this.model.events[x][y]({
 				x: this.model.x,
 				y: this.model.y,
-				prevX: Math.floor(prevX),
-				prevY: Math.floor(prevY),
+				prevX: prevX,
+				prevY: prevY,
 				model: model
 			});
 

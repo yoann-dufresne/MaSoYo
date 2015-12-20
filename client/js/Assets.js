@@ -13,7 +13,7 @@ var Assets = {
 		// Events
 		events: [
 			[-1, -1, events.lava], [0, -1, events.lava], [1, -1, events.lava], [2, -1, events.lava], [3, -1, events.lava], [4, -1, events.lava], [5, -1, events.lava], [6, -1, events.lava], [7, -1, events.lava], [8, -1, events.lava],
-			[-1, 0, events.lava],     [8, 0, events.lava],
+			[-1, 0, events.lava],     ,[3, 0, events.wall],     [8, 0, events.lava],
 			[-1, 1, events.lava],     [8, 1, events.lava],
 			[-1, 2, events.lava], [0, 2, events.lava], [1, 2, events.lava], [2, 2, events.lava], [3, 2, events.lava], [4, 2, events.lava], [5, 2, events.lava], [6, 2, events.lava], [7, 2, events.lava], [8, 2, events.lava]
 		]
