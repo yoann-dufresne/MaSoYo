@@ -35,7 +35,7 @@ Vue.prototype = {
         this.character.position.x = this.renderer.width/2;
         this.character.position.y = this.renderer.height/2;
 
-        this.character.z = 23;
+        this.character.z = 2;
 
         this.stage.addChild(this.character);
 
@@ -45,10 +45,10 @@ Vue.prototype = {
         var text = PIXI.loader.resources.background.texture;
         this.background = new PIXI.extras.TilingSprite (text, text.width, text.height);
 
-        model.x = this.renderer.width/2 - level.startX;
-        model.y = this.renderer.height/2 - level.startY;
+        model.x = level.startX;
+        model.y = level.startY;
 
-        this.background.z = 20;
+        this.background.z = 1;
         this.stage.addChild (this.background);
     },
 
@@ -60,8 +60,10 @@ Vue.prototype = {
         animate();
         function animate() {
             controler.update (function (model) {
-                that.background.position.x = model.x;
-                that.background.position.y = model.y;
+                // N'importe quoi !!!
+                that.background.position.x = that.renderer.width/2 - (model.x * Assets.tileSize);
+                that.background.position.y = that.renderer.height/2 - (model.y * Assets.tileSize);
+                events.base ({x: model.x, y: model.y});
             });
             requestAnimationFrame(animate);
 

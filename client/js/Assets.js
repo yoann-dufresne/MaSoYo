@@ -1,11 +1,11 @@
 var Assets = {
-	tilesize: 20,
+	tileSize: 20,
 	level1: {
 		// General
 		width: 20,
 		height: 5,
-		startX: 20,
-		startY: 50,
+		startX: 1,
+		startY: 2.5,
 		// Assets
 		graphics: {
 			background: 'assets/levels/easy_bg.png'
@@ -13,7 +13,7 @@ var Assets = {
 		// Events
 		events: []
 	},
-	character: 'assets/bunny.png',
+	character: 'assets/testCercle.png',
 
 	load: function (callback) {
 		PIXI.loader.add("background", Assets.level1.graphics.background);

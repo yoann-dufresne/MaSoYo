@@ -19,8 +19,8 @@ Controler.prototype = {
 		this.input.leftTime = time;
 		this.input.rightTime = time;
 
-		this.model.x -= this.model.vx * (durationX / 1000);
-		this.model.y -= this.model.vy * (durationY / 1000);
+		this.model.x += this.model.vx * (durationX / 1000);
+		this.model.y += this.model.vy * (durationY / 1000);
 
 		callback (model);
 	}
