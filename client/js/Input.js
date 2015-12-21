@@ -93,10 +93,10 @@ Input.prototype = {
 						that.down = true;
 						break;
 				}
-			}
 
-			var event = new Event('levelStart');
-			window.dispatchEvent(event);
+				var event = new Event('levelStart');
+				window.dispatchEvent(event);
+			}
 		}
 	}
 };

@@ -43,6 +43,8 @@ Vue.prototype = {
     },
 
     loadLevel: function (level) {
+        var that = this;
+
         controler.loadLevel (level);
 
         var text = PIXI.loader.resources.background.texture;
@@ -50,6 +52,8 @@ Vue.prototype = {
 
         this.background.z = 1;
         this.stage.addChild (this.background);
+
+        window.addEventListener ('win', function () {that.printScore()});
     },
 
     loadStartScreen: function () {
@@ -77,6 +81,26 @@ Vue.prototype = {
         window.addEventListener ('levelStart', function () {that.stage.removeChild(that.startScreen);});
     },
 
+    printScore: function () {
+        var that = this;
+
+        var md = this.model;
+        var score = Math.floor((md.win - md.start)/100)/10;
+
+        var text = new PIXI.Text(score+"s", {font:"90px Arial", fill:"white", align : 'center'});
+        text.anchor.x = 0.5;
+        text.anchor.y = 0.5;
+        text.position.x = this.renderer.width/2;
+        text.position.y = this.renderer.height/2;
+        this.stage.addChild (text);
+
+        setTimeout(function () {
+            that.stage = new PIXI.Container();
+            that.load(Assets.level1, function(){});
+            inputKeyboard.startScreenControl();
+        }, 2000);
+    },
+
     startAnimation: function () {
         // start animating
         var that = vue;
@@ -84,9 +108,9 @@ Vue.prototype = {
 
         animate();
         function animate() {
-            controler.update (function (model) {
-                that.background.position.x = that.renderer.width/2 - (model.x * Assets.tileSize);
-                that.background.position.y = that.renderer.height/2 - (model.y * Assets.tileSize);
+            controler.update (function () {
+                that.background.position.x = that.renderer.width/2 - (that.model.x * Assets.tileSize);
+                that.background.position.y = that.renderer.height/2 - (that.model.y * Assets.tileSize);
             });
             requestAnimationFrame(animate);
 
@@ -97,7 +121,7 @@ Vue.prototype = {
 
 }
 
-var vue = new Vue ();
+var vue = new Vue (model);
 Assets.load (function () {
     vue.load (Assets.level1, vue.startAnimation);
 });

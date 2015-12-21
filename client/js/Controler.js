@@ -21,6 +21,8 @@ Controler.prototype = {
         level.events.forEach (function (elt) {
         	that.model.events[elt[0]][elt[1]] = elt[2];
         });
+
+        window.addEventListener ('levelStart', function () {that.model.start = Date.now();});
 	},
 
 	update: function (callback) {

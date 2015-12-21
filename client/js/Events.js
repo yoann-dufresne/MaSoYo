@@ -19,5 +19,12 @@ var events = {
 			coords.model.x = coords.prevX;
 		if (Math.floor(coords.prevY) != Math.floor(coords.y))
 			coords.model.y = coords.prevY;
+	},
+
+	win: function (coords) {
+		inputKeyboard.active = false;
+		var win = new Event ('win');
+		coords.model.win = Date.now();
+		window.dispatchEvent (win);
 	}
 };
