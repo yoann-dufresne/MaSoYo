@@ -95,6 +95,7 @@ Vue.prototype = {
         this.stage.addChild (text);
 
         setTimeout(function () {
+            that.stage.destroy();
             that.stage = new PIXI.Container();
             that.load(Assets.level1, function(){});
             inputKeyboard.startScreenControl();
