@@ -8,6 +8,9 @@ Controler.prototype = {
 	loadLevel: function (level) {
 		var that = this;
 
+		this.input.active = false;
+
+		// Position character
 		this.model.x = level.startX;
         this.model.y = level.startY;
 

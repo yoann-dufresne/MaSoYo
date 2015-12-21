@@ -2,7 +2,7 @@ Code :
 3 - Create a score (the time from the beginning to the end)
 3 - Add a winning event
 4 - Create a database (Node.js / MongoDB)
-4 - Screate a scoreboard
+4 - Create a scoreboard
 
 Design :
 - Design the hero ball with animations

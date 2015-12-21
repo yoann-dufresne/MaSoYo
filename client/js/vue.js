@@ -21,6 +21,7 @@ Vue.prototype = {
     load: function (level, callback) {
         this.loadLevel (level);
         this.loadCharacter ();
+        this.loadStartScreen ();
         callback();
     },
 
@@ -49,6 +50,31 @@ Vue.prototype = {
 
         this.background.z = 1;
         this.stage.addChild (this.background);
+    },
+
+    loadStartScreen: function () {
+        var that = this;
+
+        this.startScreen = new PIXI.Graphics();
+        this.startScreen.beginFill (0x000000, 0.75);
+        this.startScreen.drawRect (100, 100, this.renderer.width-200, this.renderer.height-200);
+
+        var text = new PIXI.Text("Level 1", {font:"70px Arial", fill:"blue", align : 'center'});
+        text.anchor.x = 0.5;
+        text.anchor.y = 0.5;
+        text.position.x = 100+this.startScreen.width/2;
+        text.position.y = 50+this.startScreen.height/2;
+        this.startScreen.addChild (text);
+
+        text = new PIXI.Text("Press any arrow to start the level", {font:"32px Arial", fill:"white", align : 'center'});
+        text.anchor.x = 0.5;
+        text.anchor.y = 0.5;
+        text.position.x = 100+this.startScreen.width/2;
+        text.position.y = 150+this.startScreen.height/2;
+        this.startScreen.addChild (text);
+
+        this.stage.addChild (this.startScreen);
+        window.addEventListener ('levelStart', function () {that.stage.removeChild(that.startScreen);});
     },
 
     startAnimation: function () {
