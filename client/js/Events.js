@@ -15,10 +15,16 @@ var events = {
 	},
 
 	wall: function (coords) {
-		if (Math.floor(coords.prevX) != Math.floor(coords.x))
-			coords.model.x = coords.prevX;
-		if (Math.floor(coords.prevY) != Math.floor(coords.y))
-			coords.model.y = coords.prevY;
+		if (Math.floor(coords.prevX) != Math.floor(coords.x)) {
+			coords.model.x = Math.round(coords.prevX);
+			if (coords.prevX < coords.x)
+				coords.model.x -= 0.000001
+		}
+		if (Math.floor(coords.prevY) != Math.floor(coords.y)) {
+			coords.model.y = Math.round(coords.prevY);
+			if (coords.prevY < coords.y)
+				coords.model.y -= 0.000001
+		}
 	},
 
 	win: function (coords) {
