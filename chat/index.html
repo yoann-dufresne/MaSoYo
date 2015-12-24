@@ -36,12 +36,13 @@
     })
 
     function connect(c) {
-      // Handle a chat connection.
-
+      datas = []
       c.on('data', function(data) {
         console.log(c.peer);
-        console.log(data);
-        $("#messages").append("<li> Other : "+data+"</li>")
+        console.log(Date(data));
+        data = (new Date().getTime()) - (new Date(data).getTime());
+        datas.push(data);
+        // $("#messages").append("<li> Other : " + data + "</li>")
       });
       c.on('close', function() {
         alert(c.peer + ' has left the chat.');
@@ -57,20 +58,24 @@
       console.log("triyng to connect to : "+id_);
     }
 
+    function send_message(msg) {
+      for (other_id in peer.connections) {
+        for(var i = 0; i < peer.connections[other_id].length; i+=1){
+          var c = peer.connections[other_id][i];
+          c.send(msg);
+          console.log("sent message : " + msg + " to : " + c.peer);          };
+        }
+    }
+
     $(function(){
       $('#submit').click(function(e) {
         console.log("#submit clicked");
         e.preventDefault();
         // For each active connection, send the message.
         var msg = $('#message').val();
-        console.log(peer.connections)
-        for (other_id in peer.connections) {
-          for(var i = 0; i < peer.connections[other_id].length; i+=1){
-            var c = peer.connections[other_id][i];
-            c.send(msg);
-            console.log("sent message : " + msg + " to : " + c.peer);
-          };
-        }
+        console.log(peer.connections);
+
+        setInterval(function(){send_message(new Date);}, 20);
 
         $('#text').val('');
         $('#text').focus();
