@@ -27,53 +27,61 @@ InputNetwork.prototype = {
     })
   },
 
+  key_down: function(keycode){
+    var that = this;
+    switch (keycode) {
+      case 37:
+        if (!that.left)
+          that.leftTime = Date.now();
+        that.left = true;
+        break;
+      case 38:
+        if (!that.up)
+          that.upTime = Date.now();
+        that.up = true;
+        break;
+      case 39:
+        if (!that.right)
+          that.rightTime = Date.now();
+        that.right = true;
+        break;
+      case 40:
+        if (!that.down)
+          that.downTime = Date.now();
+        that.down = true;
+        break;
+      default:
+    }
+  },
+
+  key_up: function(keycode){
+    var that = this;
+    switch (keycode) {
+      case 37:
+        that.left = false;
+        break;
+      case 38:
+        that.up = false;
+        break;
+      case 39:
+        that.right = false;
+        break;
+      case 40:
+        that.down = false;
+        break;
+      default:
+    }
+  },
 
   connect: function (c) {
     var that = this;
     c.on('data', function(data) {
       console.log(data)
       if (data.down){
-        switch (parseInt(data.down)) {
-          case 37:
-            if (!that.left)
-              that.leftTime = Date.now();
-            that.left = true;
-            break;
-          case 38:
-            if (!that.up)
-              that.upTime = Date.now();
-            that.up = true;
-            break;
-          case 39:
-            if (!that.right)
-              that.rightTime = Date.now();
-            that.right = true;
-            break;
-          case 40:
-            if (!that.down)
-              that.downTime = Date.now();
-            that.down = true;
-            break;
-          default:
-        }
+        that.key_down(parseInt(data.down));
       }
       else if (data.up){
-        switch (parseInt(data.up)) {
-          case 37:
-            that.left = false;
-            break;
-          case 38:
-            that.up = false;
-            break;
-          case 39:
-            that.right = false;
-            break;
-          case 40:
-            that.down = false;
-            break;
-          default:
-      }
-
+        that.key_up(parseInt(data.up));
       }
     });
     c.on('close', function() {
@@ -107,48 +115,12 @@ InputNetwork.prototype = {
     var that = this;
     window.onkeydown = function (event) {
       that.send_message({"down":event.keyCode})
-      switch (event.keyCode) {
-        case 37:
-          if (!that.left)
-            that.leftTime = Date.now();
-          that.left = true;
-          break;
-        case 38:
-          if (!that.up)
-            that.upTime = Date.now();
-          that.up = true;
-          break;
-        case 39:
-          if (!that.right)
-            that.rightTime = Date.now();
-          that.right = true;
-          break;
-        case 40:
-          if (!that.down)
-            that.downTime = Date.now();
-          that.down = true;
-          break;
-        default:
-      }
+      that.key_down(event.keyCode);
     }
 
     window.onkeyup = function (event) {
       that.send_message({"up":event.keyCode})
-      switch (event.keyCode) {
-        case 37:
-          that.left = false;
-          break;
-        case 38:
-          that.up = false;
-          break;
-        case 39:
-          that.right = false;
-          break;
-        case 40:
-          that.down = false;
-          break;
-        default:
-      }
+      that.key_up(event.keyCode);
     }
   },
 
