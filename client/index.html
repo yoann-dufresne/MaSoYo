@@ -6,14 +6,39 @@
     <!--link rel="stylesheet" href="style.css"-->
   </head>
   <body>
-    <!-- page content -->
+    <div>
+      <div>
+        Your peer ID : <span id="pid">...</span>
+      </div>
+      Connect to a peer: <input type="text" id="rid" placeholder="Someone else's id"><input class="button" type="button" value="Connect" id="connect"><br><br>
+
+    </div>
+
   </body>
 
   <script type="text/javascript" src="lib/pixi.js"></script>
+  <script type="text/javascript" src="lib/peer.js"></script>
+  <script type="text/javascript" src="lib/jquery.js"></script>
   <script type="text/javascript" src="js/Events.js"></script>
   <script type="text/javascript" src="js/Assets.js"></script>
-  <script type="text/javascript" src="js/Input.js"></script>
+  <script type="text/javascript" src="js/InputNetwork.js"></script>
   <script type="text/javascript" src="js/Model.js"></script>
   <script type="text/javascript" src="js/Controler.js"></script>
   <script type="text/javascript" src="js/Vue.js"></script>
+  <script>
+    $(function(){
+      inputKeyboard.peer.on('open', function(id){
+        $('#pid').text(id);
+      });
+
+      $('#connect').click(function(e) {
+        console.log("#connect clicked");
+        e.preventDefault();
+        var requestedPeer = $('#rid').val();
+        console.log("connecting to : " + requestedPeer + "...");
+        inputKeyboard.connect_to_id(requestedPeer);
+      });
+
+    })
+  </script>
 </html>
