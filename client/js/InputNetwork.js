@@ -83,6 +83,9 @@ InputNetwork.prototype = {
       else if (data.up){
         that.key_up(parseInt(data.up));
       }
+      else if (data.start){
+        that.startGame(data.start)
+      }
     });
     c.on('close', function() {
       alert(c.peer + ' has left the chat.');
@@ -124,15 +127,12 @@ InputNetwork.prototype = {
     }
   },
 
-  startScreenControl: function () {
-    var that = this;
-
-    window.onkeydown = function (event) {
-      var key = event.keyCode;
-
-      if (key >= 37 && key <= 40) {
-        that.gameControl();
-        that.active = true;
+  startGame: function(key) {
+        if (!this.active) {
+          this.send_message({"start":key})
+        }
+        this.gameControl();
+        this.active = true;
 
         var event = new Event('keydown');
         event.keyCode = key;
@@ -140,6 +140,16 @@ InputNetwork.prototype = {
 
         var event = new Event('levelStart');
         window.dispatchEvent(event);
+  },
+
+  startScreenControl: function () {
+    var that = this;
+
+    window.onkeydown = function (event) {
+      var key = event.keyCode;
+
+      if (key >= 37 && key <= 40) {
+        that.startGame(key);
       }
     }
   }
