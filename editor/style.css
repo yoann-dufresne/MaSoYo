@@ -1,0 +1,24 @@
+
+#leftPannel {
+	position: absolute;
+	left: 25px;
+	top: 25px;
+	width:300px;
+	min-height: 600px;
+}
+
+#tileSet {
+	border: solid black 1px;
+}
+
+#stage {
+	position: absolute;
+	top: 25px;
+	left: 350px;
+}
+
+.tile {
+	background-color: #E42217;
+	height: 50px;
+	width: 50px;
+}
