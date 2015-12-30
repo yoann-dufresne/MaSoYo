@@ -1,0 +1,18 @@
+{
+
+	"width": 8,
+	"height": 2,
+	"startX": 0.5,
+	"startY": 0.5,
+
+	"graphics": {
+		"background": "assets/levels/easy_bg.png"
+	},
+
+	"events": [
+		[-1, -1, "lava"], [0, -1, "lava"], [1, -1, "lava"], [2, -1, "lava"], [3, -1, "lava"], [4, -1, "lava"], [5, -1, "lava"], [6, -1, "lava"], [7, -1, "lava"], [8, -1, "lava"],
+		[-1, 0, "lava"],     [3, 0, "wall"],     [7, 0, "win"], [8, 0, "lava"],
+		[-1, 1, "lava"],     [7, 1, "win"], [8, 1, "lava"],
+		[-1, 2, "lava"], [0, 2, "lava"], [1, 2, "lava"], [2, 2, "lava"], [3, 2, "lava"], [4, 2, "lava"], [5, 2, "lava"], [6, 2, "lava"], [7, 2, "lava"], [8, 2, "lava"]
+	]
+}

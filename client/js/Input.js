@@ -83,4 +83,3 @@ Input.prototype = {
 };
 
 var inputKeyboard = new Input();
-inputKeyboard.startScreenControl ();

@@ -1,29 +1,42 @@
 var Assets = {
 	tileSize: 50,
-	level1: {
-		// General
-		width: 8,
-		height: 2,
-		startX: 0.5,
-		startY: 0.5,
-		// Assets
-		graphics: {
-			background: 'assets/levels/easy_bg.png'
-		},
-		// Events
-		events: [
-			[-1, -1, events.lava], [0, -1, events.lava], [1, -1, events.lava], [2, -1, events.lava], [3, -1, events.lava], [4, -1, events.lava], [5, -1, events.lava], [6, -1, events.lava], [7, -1, events.lava], [8, -1, events.lava],
-			[-1, 0, events.lava],     ,[3, 0, events.wall],     [7, 0, events.win], [8, 0, events.lava],
-			[-1, 1, events.lava],     [7, 1, events.win], [8, 1, events.lava],
-			[-1, 2, events.lava], [0, 2, events.lava], [1, 2, events.lava], [2, 2, events.lava], [3, 2, events.lava], [4, 2, events.lava], [5, 2, events.lava], [6, 2, events.lava], [7, 2, events.lava], [8, 2, events.lava]
-		]
-	},
+	levels: {easy:null},
+	loaders: {},
 	character: 'assets/testCercle.png',
+	sharedLoaded: false,
 
-	load: function (callback) {
-		PIXI.loader.add("background", Assets.level1.graphics.background);
-		PIXI.loader.add("character", Assets.character);
-		PIXI.loader.once('complete', function() { callback (); });
-		PIXI.loader.load ();
+	loadSharedSprites: function (onLoad) {
+		var that = this;
+
+		this.sharedLoader = new PIXI.loaders.Loader();
+		this.sharedLoader.add("character", Assets.character);
+		this.sharedLoader.once('complete', function() {
+			that.sharedLoaded = true;
+			onLoad ();
+		});
+		this.sharedLoader.load();
+	},
+
+	loadLevelAssets: function (level, onLoad) {
+		var that = this;
+		if (this.sharedLoaded) {
+			if (this.levels[level] == null)
+				$.getJSON( "assets/levels/" + level + "_desc.json", function( data ) {})
+				.done ( function (data) {
+					that.levels[level] = data;
+					that.loaders[level] = new PIXI.loaders.Loader();
+					that.loaders[level].add("background", that.levels[level].graphics.background);
+					that.loaders[level].once('complete', function() {
+						window.dispatchEvent(new Event("levelLoaded"));
+						onLoad ();
+					});
+					that.loaders[level].load ();
+				})
+				.fail(function(data) {
+					console.log( data );
+				});
+		} else {
+			this.loadSharedSprites (function () {that.loadLevelAssets (level, onLoad); });
+		}
 	}
 };

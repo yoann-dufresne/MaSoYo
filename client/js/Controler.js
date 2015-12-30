@@ -5,10 +5,12 @@ function Controler (input, model) {
 }
 
 Controler.prototype = {
-	loadLevel: function (level) {
+	loadLevel: function (levelName) {
 		var that = this;
 
+		inputKeyboard.startScreenControl ();
 		this.input.active = false;
+		var level = Assets.levels[levelName];
 
 		// Position character
 		this.model.x = level.startX;
@@ -19,13 +21,15 @@ Controler.prototype = {
         for (var i=-1 ; i<=level.width ; i++)
         	this.model.events[i] = [];
         level.events.forEach (function (elt) {
-        	that.model.events[elt[0]][elt[1]] = elt[2];
+        	that.model.events[elt[0]][elt[1]] = events[elt[2]];
         });
-
-        window.addEventListener ('levelStart', function () {that.model.start = Date.now();});
 	},
 
-	update: function (callback) {
+	startLevel: function () {
+		this.model.start = Date.now();
+	},
+
+	refresh: function () {
 		// Move the character
 		var time = Date.now();
 
@@ -46,7 +50,6 @@ Controler.prototype = {
 		this.input.rightTime = time;
 
 		if (!this.input.active) {
-			callback (model);
 			return;
 		}
 
@@ -66,8 +69,6 @@ Controler.prototype = {
 				prevY: prevY,
 				model: model
 			});
-
-		callback (model);
 	}
 }
 
