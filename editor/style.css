@@ -9,16 +9,23 @@
 
 #tileSet {
 	border: solid black 1px;
+	display: none;
 }
 
-#stage {
+#rightPannel {
 	position: absolute;
 	top: 25px;
 	left: 350px;
 }
 
+#fileSelector {
+	margin-top: 15px;
+}
+
+#download {
+	margin-bottom: 15px;
+}
+
 .tile {
 	background-color: #E42217;
-	height: 50px;
-	width: 50px;
 }
