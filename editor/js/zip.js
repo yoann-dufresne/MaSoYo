@@ -2,30 +2,35 @@
 var Zip = {
 	createZip: function () {
 		var name = document.querySelector("#name").value;
-
-		var a = document.createElement("a");
-    	document.body.appendChild(a);
-    	a.style = "display: none";
-
 		var zip = new JSZip();
-		this.drawImage (zip, name);
+
+		// Prepare zip
+		var properties = this.getProperties();
+		this.drawImage (zip, name, properties);
+		this.jsonDescriptor (zip, name, properties);
+		
+		// Generate zip
 		var blob = zip.generate({type:"blob"});
 		var url = window.URL.createObjectURL(blob);
 		
+		// Download
+		var a = document.createElement("a");
+    	document.body.appendChild(a);
+    	a.style = "display: none";
 		a.href = url;
 		a.download = name + ".zip";
 		a.click();
 
+		// Clean
 		window.URL.revokeObjectURL(url);
 		document.body.removeChild(a);
 	},
 
-	drawImage: function (zip, name) {
+	getProperties: function () {
 		var minX=tiles.matrix.length;
 		var maxX=-1;
 		var minY=tiles.matrix[0].length;
 		var maxY=-1;
-
 		var mx = tiles.matrix;
 
 		// Analysis of the stage
@@ -43,6 +48,30 @@ var Zip = {
 				}
 			}
 		}
+
+		return {minX: minX, maxX: maxX, minY: minY, maxY: maxY};
+	},
+
+	jsonDescriptor: function (zip, name, properties) {
+		var desc = {};
+
+		desc.width = properties.maxX - properties.minX + 1;
+		desc.height = properties.maxY - properties.minY + 1;
+
+		//desc.startX =
+		//desc.startY =
+
+		desc.background = name + "_bg.png";
+
+		zip.file(name + ".json", JSON.stringify(desc));
+	},
+
+	drawImage: function (zip, name, properties) {
+		var minX = properties.minX;
+		var maxX = properties.maxX;
+		var minY = properties.minY;
+		var maxY = properties.maxY;
+		var mx = tiles.matrix;
 
 		// Stage picture creation
 		var draw = document.createElement("canvas");
