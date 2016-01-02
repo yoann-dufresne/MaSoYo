@@ -8,15 +8,15 @@ var Zip = {
 		var properties = this.getProperties();
 		this.drawImage (zip, name, properties);
 		this.jsonDescriptor (zip, name, properties);
-		
+
 		// Generate zip
 		var blob = zip.generate({type:"blob"});
 		var url = window.URL.createObjectURL(blob);
-		
+
 		// Download
 		var a = document.createElement("a");
-    	document.body.appendChild(a);
-    	a.style = "display: none";
+		document.body.appendChild(a);
+		a.style = "display: none";
 		a.href = url;
 		a.download = name + ".zip";
 		a.click();

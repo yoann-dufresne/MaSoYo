@@ -46,7 +46,7 @@ Tiles.prototype = {
 		// Create the new table
 		for (y=0 ; y<this.height ; y++) {
 			var tr = document.createElement("tr");
-			
+
 			for (x=0 ; x<this.width ; x++) {
 				tr.appendChild(this.matrix[x][y].td);
 			}

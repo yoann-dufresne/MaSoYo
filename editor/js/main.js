@@ -19,7 +19,7 @@ var drawTileSelector = function (x, y) {
 	canvas.width = img.width;
 	canvas.height = img.height;
 	ctx.drawImage(img,0,0);
-	
+
 	if (x != undefined && y != undefined) {
 		// Create the subImg if it doesn't exist
 		tmpCanvas.width = tiles.tileSize;
@@ -89,8 +89,8 @@ selector.addEventListener('change', function() {
 // ----- Canvas -----
 canvas.addEventListener ('click', function (event) {
 	var x = event.clientX - $(canvas).offset().left;
-    var y = event.clientY - $(canvas).offset().top;
-	
+  var y = event.clientY - $(canvas).offset().top;
+
 	currentX = Math.floor(x / tiles.tileSize);
 	currentY = Math.floor(y / tiles.tileSize);
 
