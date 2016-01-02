@@ -1,0 +1,1 @@
+var events = ["wall", "win", "lava"];

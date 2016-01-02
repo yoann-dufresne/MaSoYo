@@ -7,11 +7,15 @@
   </head>
   <body>
     <div id="leftPannel">
+      <p>Event: <select id="event">
+        <option value="none">--- none ---</option>
+      </select></p>
       <canvas id="tileSet"></canvas>
       <input type="file" name="tilesFile" id="fileSelector"> 
     </div>
     <div id="rightPannel">
-      <p>Level name <input type="text" value="example" id="name"></p>
+      <p>Level name <input type="text" value="example" id="name" /></p>
+      <p>Start X <input type="text" value="0.5" id="startX" /> Start Y <input type="text" value="0.5" id="startY" /></p>
       <button id="download">Download level</button>
       <table id="stage">
         <tr><td class="tile"></td><td class="tile"></td><td class="tile"></td></tr>
@@ -23,6 +27,7 @@
 
   <script type="text/javascript" src="lib/jquery-2.1.4.js"></script>
   <script type="text/javascript" src="lib/jszip.js"></script>
+  <script type="text/javascript" src="data/events.js"></script>
   <script type="text/javascript" src="js/Tiles.js"></script>
   <script type="text/javascript" src="js/zip.js"></script>
   <script type="text/javascript" src="js/main.js"></script>

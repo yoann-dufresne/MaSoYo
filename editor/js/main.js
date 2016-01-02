@@ -5,6 +5,7 @@ var canvas = document.querySelector('#tileSet');
 var tmpCanvas = document.createElement("canvas");
 var table = document.querySelector('#stage');
 var download = document.querySelector('#download');
+var eventSelector = document.querySelector('#event');
 
 var img = null;
 var subImgs = [];
@@ -51,6 +52,15 @@ var drawTileSelector = function (x, y) {
 		ctx.stroke();
 	}
 }
+
+
+// ----- Loading of events -----
+events.forEach (function (elt) {
+	var opt = document.createElement ("option");
+	opt.value = elt;
+	opt.innerHTML = elt;
+	eventSelector.appendChild(opt);
+});
 
 
 // ----- File selector -----

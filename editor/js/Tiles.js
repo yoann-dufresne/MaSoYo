@@ -23,8 +23,14 @@ function Tiles (width, height, tileSize) {
 				var elm = event.srcElement;
 				if (subImgs[currentX] != undefined && subImgs[currentX][currentY] != undefined) {
 					elm.style["background-image"] = "url(\"" + subImgs[currentX][currentY] + "\")";
-					that.matrix[elm.x][elm.y].tileX = currentX;
-					that.matrix[elm.x][elm.y].tileY = currentY;
+					var mc = that.matrix[elm.x][elm.y];
+					mc.tileX = currentX;
+					mc.tileY = currentY;
+
+					if (eventSelector.value != "none") {
+						mc.event = eventSelector.value;
+						elm.innerHTML = "<p>" + eventSelector.value + "</p>";
+					}
 				}
 			});
 		}

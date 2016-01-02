@@ -28,4 +28,18 @@
 
 .tile {
 	background-color: #E42217;
+	color: black;
+	position: relative;
+	padding: 0px;
+}
+
+.tile p {
+	margin: 0px;
+	padding: 1px;
+	position: absolute;
+	display: inline-block;
+	background-color: white;
+	bottom: 0px;
+	left: 0px;
+	font-size: 12px;
 }

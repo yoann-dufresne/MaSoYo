@@ -53,15 +53,33 @@ var Zip = {
 	},
 
 	jsonDescriptor: function (zip, name, properties) {
+		var minX = properties.minX;
+		var maxX = properties.maxX;
+		var minY = properties.minY;
+		var maxY = properties.maxY;
+
 		var desc = {};
 
 		desc.width = properties.maxX - properties.minX + 1;
 		desc.height = properties.maxY - properties.minY + 1;
+		desc.startX = parseInt(document.querySelector("#startX").value);
+		desc.startY = parseInt(document.querySelector("#startY").value);
 
-		//desc.startX =
-		//desc.startY =
+		desc.graphics = {background: (name + "_bg.png")};
 
-		desc.background = name + "_bg.png";
+		// Events
+		desc.events = [];
+		for (var x=minX-1 ; x<=maxX+1 ; x++) {
+			for (var y=minY-1 ; y<=maxY+1 ; y++) {
+				if (tiles.matrix[x] == undefined ||
+						tiles.matrix[x][y] == undefined ||
+						tiles.matrix[x][y].tileX == undefined) {
+					desc.events.push([x-minX, y-minY, "lava"]);
+				} else if (tiles.matrix[x][y].event != undefined) {
+					desc.events.push([x-minX, y-minY, tiles.matrix[x][y].event]);
+				}
+			}
+		}
 
 		zip.file(name + ".json", JSON.stringify(desc));
 	},
