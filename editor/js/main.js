@@ -3,6 +3,7 @@
 var selector = document.querySelector('#fileSelector');
 var canvas = document.querySelector('#tileSet');
 var tmpCanvas = document.createElement("canvas");
+var copyCanvas = document.createElement("canvas");
 var table = document.querySelector('#stage');
 var download = document.querySelector('#download');
 var eventSelector = document.querySelector('#event');
@@ -27,9 +28,14 @@ var drawTileSelector = function (x, y) {
 		if (subImgs[x] == undefined)
 			subImgs[x] = [];
 		if (subImgs[x][y] == undefined) {
+			copyCanvas.width = img.width;
+			copyCanvas.height = img.height;
+			var copyCtx = copyCanvas.getContext("2d");
+			copyCtx.drawImage(img,0,0);
+
 			var tmpCtx = tmpCanvas.getContext("2d");
 			tmpCtx.drawImage(
-				canvas,
+				copyCanvas,
 				x * tiles.tileSize,
 				y * tiles.tileSize,
 				tiles.tileSize, tiles.tileSize,

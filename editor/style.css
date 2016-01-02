@@ -1,5 +1,5 @@
 
-#leftPannel {
+#leftPanel {
 	position: absolute;
 	left: 25px;
 	top: 25px;
@@ -12,7 +12,7 @@
 	display: none;
 }
 
-#rightPannel {
+#rightPanel {
 	position: absolute;
 	top: 25px;
 	left: 350px;

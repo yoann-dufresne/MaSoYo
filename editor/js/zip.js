@@ -62,8 +62,8 @@ var Zip = {
 
 		desc.width = properties.maxX - properties.minX + 1;
 		desc.height = properties.maxY - properties.minY + 1;
-		desc.startX = parseInt(document.querySelector("#startX").value);
-		desc.startY = parseInt(document.querySelector("#startY").value);
+		desc.startX = parseFloat(document.querySelector("#startX").value);
+		desc.startY = parseFloat(document.querySelector("#startY").value);
 
 		desc.graphics = {background: (name + "_bg.png")};
 
@@ -106,7 +106,7 @@ var Zip = {
 					var ty = mx[x][y].tileY;
 
 					ctx.drawImage(
-						canvas,
+						copyCanvas,
 						tx * tiles.tileSize,
 						ty * tiles.tileSize,
 						tiles.tileSize, tiles.tileSize,
