@@ -10,11 +10,16 @@ var events = {
 			coords.model.x = Math.floor(coords.prevX) + 0.5;
 			coords.model.y = Math.floor(coords.prevY) + 0.5;
 		}, 500);
-		
+
 		setTimeout (function () {inputKeyboard.active = true}, 1000);
 	},
 
 	wall: function (coords) {
+		// TODO :
+		// fix issue when facing a wall :
+			// * if we press down and right when we are left a wall (like this : me|wall )
+			// => we should be allowed to go down
+			// => nevertheless, we are blocked..., seems complicated to fix, but important for gameplay
 		if (Math.floor(coords.prevX) != Math.floor(coords.x)) {
 			coords.model.x = Math.round(coords.prevX);
 			if (coords.prevX < coords.x)
