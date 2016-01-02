@@ -75,5 +75,5 @@ Vue.prototype = {
 }
 
 var vue = new Vue (model, controler);
-vue.changeStage("easy");
+vue.changeStage("test");
 vue.startAnimation();

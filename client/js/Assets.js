@@ -1,6 +1,6 @@
 var Assets = {
 	tileSize: 50,
-	levels: {easy:null},
+	levels: {easy:null, test:null},
 	loaders: {},
 	character: 'assets/testCercle.png',
 	sharedLoaded: false,
@@ -20,12 +20,14 @@ var Assets = {
 	loadLevelAssets: function (level, onLoad) {
 		var that = this;
 		if (this.sharedLoaded) {
-			if (this.levels[level] == null)
-				$.getJSON( "assets/levels/" + level + "_desc.json", function( data ) {})
+			if (this.levels[level] == null) {
+				var directory = "assets/levels/" + level + "/";
+
+				$.getJSON( directory + level + ".json", function( data ) {})
 				.done ( function (data) {
 					that.levels[level] = data;
 					that.loaders[level] = new PIXI.loaders.Loader();
-					that.loaders[level].add("background", that.levels[level].graphics.background);
+					that.loaders[level].add("background", directory + that.levels[level].graphics.background);
 					that.loaders[level].once('complete', function() {
 						window.dispatchEvent(new Event("levelLoaded"));
 						onLoad ();
@@ -35,6 +37,7 @@ var Assets = {
 				.fail(function(data) {
 					console.log( data );
 				});
+			}
 		} else {
 			this.loadSharedSprites (function () {that.loadLevelAssets (level, onLoad); });
 		}
