@@ -20,7 +20,7 @@ function Tiles (width, height, tileSize) {
 			this.matrix[x][y] = {td: td};
 
 			td.addEventListener('click', function (event) {
-				var elm = event.srcElement;
+				var elm = event.target || event.srcElement;
 				if (subImgs[currentX] != undefined && subImgs[currentX][currentY] != undefined) {
 					elm.style["background-image"] = "url(\"" + subImgs[currentX][currentY] + "\")";
 					var mc = that.matrix[elm.x][elm.y];
