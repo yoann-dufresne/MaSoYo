@@ -25,7 +25,6 @@ function Tiles (width, height, tileSize) {
 					elm.style["background-image"] = "url(\"" + subImgs[currentX][currentY] + "\")";
 					that.matrix[elm.x][elm.y].tileX = currentX;
 					that.matrix[elm.x][elm.y].tileY = currentY;
-					that.matrix[elm.x][elm.y].level = $('input[name="tileType"]:checked').val();;
 				}
 			});
 		}

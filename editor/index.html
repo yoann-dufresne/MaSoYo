@@ -7,12 +7,11 @@
   </head>
   <body>
     <div id="leftPannel">
-      <p><input type="radio" name="tileType" value="1" checked>Floor
-      <input type="radio" name="tileType" value="2">Wall</p>
       <canvas id="tileSet"></canvas>
       <input type="file" name="tilesFile" id="fileSelector"> 
     </div>
     <div id="rightPannel">
+      <p>Level name <input type="text" value="example" id="name"></p>
       <button id="download">Download level</button>
       <table id="stage">
         <tr><td class="tile"></td><td class="tile"></td><td class="tile"></td></tr>
