@@ -28,3 +28,6 @@ node_modules
 
 # mac things
 **/*.DS_Store
+
+# linux things
+*~
