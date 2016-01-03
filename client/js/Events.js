@@ -15,17 +15,26 @@ var events = {
 	},
 
 	wall: function (coords) {
-		// TODO :
-		// fix issue when facing a wall :
-			// * if we press down and right when we are left a wall (like this : me|wall )
-			// => we should be allowed to go down
-			// => nevertheless, we are blocked..., seems complicated to fix, but important for gameplay
-		if (Math.floor(coords.prevX) != Math.floor(coords.x)) {
+		var flrX = Math.floor(coords.x);
+		var flrY = Math.floor(coords.y);
+		var flrPrevX = Math.floor(coords.prevX);
+		var flrPrevY = Math.floor(coords.prevY);
+
+		if (flrPrevX != flrX && flrPrevY != flrY)
+			if (coords.model.events[flrX][flrPrevY] == undefined) {
+				coords.prevX = coords.x;
+				flrPrevX = Math.floor(coords.x);
+			} else if (coords.model.events[flrPrevX][flrY] == undefined) { 
+				coords.prevY = coords.y;
+				flrPrevY = Math.floor(coords.y);
+			}
+
+		if (flrPrevX != flrX) {
 			coords.model.x = Math.round(coords.prevX);
 			if (coords.prevX < coords.x)
 				coords.model.x -= 0.000001
 		}
-		if (Math.floor(coords.prevY) != Math.floor(coords.y)) {
+		if (flrPrevY != flrY) {
 			coords.model.y = Math.round(coords.prevY);
 			if (coords.prevY < coords.y)
 				coords.model.y -= 0.000001
