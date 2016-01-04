@@ -11,15 +11,9 @@ function Tiles (width, height, tileSize) {
 	for (x=0 ; x<width ; x++) {
 		this.matrix[x] = [];
 		for (y=0 ; y<height ; y++) {
-			var td = document.createElement("td");
-			td.classList.add("tile");
-			td.style.width = this.tileSize + "px";
-			td.style.height = this.tileSize + "px";
-			td.x = x;
-			td.y = y;
-			this.matrix[x][y] = {td: td};
+			this.matrix[x][y] = this.createTd(x, y);
 
-			td.addEventListener('click', function (event) {
+			this.matrix[x][y].td.addEventListener('click', function (event) {
 				var elm = event.target || event.srcElement;
 				if (subImgs[currentX] != undefined && subImgs[currentX][currentY] != undefined) {
 					elm.style["background-image"] = "url(\"" + subImgs[currentX][currentY] + "\")";
@@ -38,6 +32,17 @@ function Tiles (width, height, tileSize) {
 }
 
 Tiles.prototype = {
+	createTd: function (x, y) {
+		var td = document.createElement("td");
+		td.classList.add("tile");
+		td.style.width = this.tileSize + "px";
+		td.style.height = this.tileSize + "px";
+		td.x = x;
+		td.y = y;
+
+		return {td: td};
+	},
+
 	draw: function (table) {
 		// Remove prec td
 		while (table.hasChildNodes())
@@ -53,5 +58,37 @@ Tiles.prototype = {
 
 			table.appendChild (tr);
 		}
+	},
+
+	enlarge: function (xAdd, yAdd, shift, callback) {
+		var width = this.width + (xAdd ? 1 : 0);
+		var height = this.height + (yAdd ? 1 : 0);
+		console.log(width, height);
+
+		var matrix = [];
+		for (var i=0 ; i<width ; i++) {
+			matrix[i] = [];
+
+			for (j=0 ; j<height ; j++) {
+				var x = i - (xAdd ? shift : 0);
+				var y = j - (yAdd ? shift : 0);
+
+				var td = null;
+				if (this.matrix[x] == undefined || this.matrix[x][y] == undefined)
+					td = this.createTd (i, j);
+				else
+					td = this.matrix[x][y];
+				td.x = i;
+				td.y = j;
+
+				matrix[i][j] = td;
+			}
+		}
+		
+		this.matrix = matrix;
+		this.height = height;
+		this.width = width;
+
+		callback ();
 	}
 };

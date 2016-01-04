@@ -16,6 +16,7 @@
 	position: absolute;
 	top: 25px;
 	left: 350px;
+	width: 800px;
 }
 
 #fileSelector {
@@ -32,8 +33,13 @@
 	vertical-align: middle;
 }
 
+#map-wrapper {
+  position:relative;
+}
+
 #map {
 	text-align: center;
+	overflow: auto;
 }
 
 .tile {

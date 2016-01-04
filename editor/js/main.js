@@ -103,6 +103,24 @@ canvas.addEventListener ('click', function (event) {
 var tiles = new Tiles (7, 3, 50);
 tiles.draw (table);
 
+// ----- Buttons to enlarge the stage -----
+var bottom = document.getElementById("bottom");
+bottom.addEventListener("click", function () {
+	tiles.enlarge(false, true, 0, function () {tiles.draw(table);});
+});
+var up = document.getElementById("top");
+up.addEventListener("click", function () {
+	tiles.enlarge(false, true, 1, function () {tiles.draw(table);});
+});
+var left = document.getElementById("left");
+left.addEventListener("click", function () {
+	tiles.enlarge(true, false, 1, function () {tiles.draw(table);});
+});
+var right = document.getElementById("right");
+right.addEventListener("click", function () {
+	tiles.enlarge(true, false, 0, function () {tiles.draw(table);});
+});
+
 
 
 // ----- Download button -----
