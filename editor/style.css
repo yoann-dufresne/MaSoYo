@@ -26,6 +26,16 @@
 	margin-bottom: 15px;
 }
 
+
+#tableLine button, #tableLine table {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#map {
+	text-align: center;
+}
+
 .tile {
 	background-color: #E42217;
 	color: black;

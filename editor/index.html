@@ -17,11 +17,19 @@
       <p>Level name <input type="text" value="example" id="name" /></p>
       <p>Start X <input type="text" value="0.5" id="startX" /> Start Y <input type="text" value="0.5" id="startY" /></p>
       <button id="download">Download level</button>
-      <table id="stage">
-        <tr><td class="tile"></td><td class="tile"></td><td class="tile"></td></tr>
-        <tr><td class="tile"></td><td class="tile"></td><td class="tile"></td></tr>
-        <tr><td class="tile"></td><td class="tile"></td><td class="tile"></td></tr>
-      </table>
+      <div id="map">
+        <button id="top" class="plus">+</button>
+        <div id="tableLine">
+          <button id="left" class="plus">+</button>
+          <table id="stage">
+            <tr><td class="tile"></td><td class="tile"></td><td class="tile"></td></tr>
+            <tr><td class="tile"></td><td class="tile"></td><td class="tile"></td></tr>
+            <tr><td class="tile"></td><td class="tile"></td><td class="tile"></td></tr>
+          </table>
+          <button id="right" class="plus">+</button>
+        </div>
+        <button id="bottom" class="plus">+</button>
+      </div>
     </div>
   </body>
 
