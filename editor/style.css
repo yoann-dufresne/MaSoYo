@@ -39,12 +39,12 @@
 #map-wrapper {
   position:relative;
   width: 100%;
-  overflow-x: scroll; 
+  overflow-x: scroll;
 }
 
 #map {
 	text-align: center;
-	overflow: auto;
+	/*overflow: auto;*/
 }
 
 .tile {
