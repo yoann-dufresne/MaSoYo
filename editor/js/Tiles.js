@@ -35,8 +35,8 @@ Tiles.prototype = {
 	createTd: function (x, y) {
 		var td = document.createElement("td");
 		td.classList.add("tile");
-		td.style.width = this.tileSize + "px";
-		td.style.height = this.tileSize + "px";
+		td.style["min-width"] = this.tileSize + "px";
+		td.style["height"] = this.tileSize + "px";
 		td.x = x;
 		td.y = y;
 
