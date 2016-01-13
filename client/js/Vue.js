@@ -113,7 +113,7 @@ Vue.prototype = {
 	},
 
 	loadMenu: function () {
-		
+		this.stage = this.menu;
 	}
 
 }

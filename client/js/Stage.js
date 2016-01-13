@@ -106,7 +106,7 @@ Stage.prototype.enableScoreScreen = function () {
 	var that = this;
 	setTimeout (function () {
 		that.disableScoreScreen();
-		vue.changeStage("test");
+		vue.loadMenu ();
 	}, 500);
 }
 
