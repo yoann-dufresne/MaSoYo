@@ -10,6 +10,16 @@ function Input () {
 	this.downTime = 0;
 
 	this.active = true;
+
+	/*var that = this;
+	this.peer = new Peer("toto", {key: '0opo1rm535xc4n29'});
+	this.peer.on('connection', function(conn) {
+		console.log ("connection");
+		console.log (conn.peer);
+		conn.on('data', function(data) {
+			console.log('Received', data);
+		});
+	});/**/
 }
 
 

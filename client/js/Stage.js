@@ -9,9 +9,9 @@ function Stage (renderer, model, level) {
 
 	// Start screen
 	this.startScreen = new PIXI.Graphics();
-    this.startScreen.beginFill (0x000000, 0.75);
-    this.startScreen.drawRect (100, 100, this.renderer.width-200, this.renderer.height-200);
-    this.startScreen.z = 100;
+	this.startScreen.beginFill (0x000000, 0.75);
+	this.startScreen.drawRect (100, 100, this.renderer.width-200, this.renderer.height-200);
+	this.startScreen.z = 100;
 
 	var text = new PIXI.Text("Level " + this.levelName, {font:"70px Arial", fill:"blue", align : 'center'});
 	text.anchor.x = 0.5;
@@ -33,25 +33,25 @@ function Stage (renderer, model, level) {
 	Assets.loadLevelAssets (level, function () {
 		// Level
 		var text = Assets.loaders[level].resources.background.texture;
-        that.background = new PIXI.extras.TilingSprite (text, text.width, text.height);
-        that.background.z = 1;
-        that.loadedParts.level = true;
-        that.addChild(that.background);
+		that.background = new PIXI.extras.TilingSprite (text, text.width, text.height);
+		that.background.z = 1;
+		that.loadedParts.level = true;
+		that.addChild(that.background);
 
 		// Character
 		var charTexture = Assets.sharedLoader.resources.character.texture;
-        that.character = new PIXI.Sprite(charTexture);
-        // center the sprite's anchor point
-        that.character.anchor.x = 0.5;
-        that.character.anchor.y = 0.5;
-        // move the sprite to the center of the screen
-        that.character.position.x = that.renderer.width/2;
-        that.character.position.y = that.renderer.height/2;
-        // Define the depth for the painting
-        that.character.z = 2;
-        that.addChild(that.character);
-        that.loadedParts.character = true;
-        that.emitConstructed ();
+		that.character = new PIXI.Sprite(charTexture);
+		// center the sprite's anchor point
+		that.character.anchor.x = 0.5;
+		that.character.anchor.y = 0.5;
+		// move the sprite to the center of the screen
+		that.character.position.x = that.renderer.width/2;
+		that.character.position.y = that.renderer.height/2;
+		// Define the depth for the painting
+		that.character.z = 2;
+		that.addChild(that.character);
+		that.loadedParts.character = true;
+		that.emitConstructed ();
 	});
 
 	// Creation of the score node for the renderer
