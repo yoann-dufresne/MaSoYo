@@ -112,6 +112,14 @@ Vue.prototype = {
 		this.menu.addChild (test);
 	},
 
+	initButtons: function () {
+		$("#sendUsername").click(function () {
+			var name = $("#username").val();
+			console.log(name);
+			network.connect(name);
+		});
+	},
+
 	loadMenu: function () {
 		this.stage = this.menu;
 	}
@@ -120,5 +128,6 @@ Vue.prototype = {
 
 var vue = new Vue (model, controler);
 vue.initMenu();
+vue.initButtons();
 //vue.changeStage("test");
 vue.startAnimation();
