@@ -7,11 +7,14 @@ app.get('/', function(req, res, next) {
   res.send('Hello world!');
 });
 
-var server = app.listen(9000);
+var port = 1414;
+var server = app.listen(port);
 
 var options = {
   debug: true,
-  allow_discovery: true
+  allow_discovery: true,
+  port: port, 
+  proxied: true
 }
 
 var connected = [];
