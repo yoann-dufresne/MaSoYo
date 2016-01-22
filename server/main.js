@@ -3,15 +3,15 @@ var app = express();
 var ExpressPeerServer = require('peer').ExpressPeerServer;
 
 app.get('/', function(req, res, next) {
-    console.log("get /")
-    res.send('Hello world!');
+  console.log("get /")
+  res.send('Hello world!');
 });
 
 var server = app.listen(9000);
 
 var options = {
-    debug: true,
-    allow_discovery: true
+  debug: true,
+  allow_discovery: true
 }
 
 var connected = [];
