@@ -119,5 +119,5 @@ Network.prototype = {
 	}
 };
 
-var network = new Network ("127.0.0.1", 9000, "/api", "/connected-people");
+var network = new Network ("masoyo.falce.net", 80, "/api", "/connected-people");
 setInterval(function(){network.peersConnectedToServer(network)}, 1000);
