@@ -18,6 +18,26 @@ Network.prototype = {
 		console.log (data);
 	},
 
+  connect_to_id: function(id_) {
+    console.log("connecting to id", id_);
+    var that = this;
+    var c = this.peer.connect(id_);
+    c.on('open', function() {
+      console.log("opened connection to", id_);
+    });
+
+    c.on('data', that.receiveData);
+
+    c.on('close', function() {
+      alert(c.peer + ' has left the chat.');
+    });
+
+    c.on('error', function(err) {
+      alert(err);
+    });
+  },
+
+
   peersConnectedToServer: function (that) {
     serv = 'http://' + that.address + ':' + that.port + that.URL_discovery;
 
