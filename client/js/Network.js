@@ -1,9 +1,10 @@
 
 
-function Network (serverAddress, port, subDomain) {
+function Network (serverAddress, port, subDomain, URL_discovery) {
 	this.address = serverAddress;
 	this.port = port;
 	this.subDomain = subDomain;
+  this.URL_discovery = URL_discovery
 
 	var that = this;
 }
@@ -17,8 +18,61 @@ Network.prototype = {
 		console.log (data);
 	},
 
+  peersConnectedToServer: function (that) {
+    serv = 'http://' + that.address + ':' + that.port + that.URL_discovery;
+
+    function createInput(name){
+      var $input = $('<input type="button" value=' + name + ' />').click(function () {
+        console.log("clicked button", name);
+        that.connect_to_id(name);
+      });
+      console.log("appended", $input);
+      $input.appendTo($("#others"));
+    }
+
+    function removeInput(){
+      console.log("remove")
+      $("#others").empty();
+    }
+
+
+    function arraysIdentical(a, b) {
+      if (typeof a == 'undefined'){return false;}
+
+      var i = a.length;
+      if (i != b.length) return false;
+      while (i--) {
+        if (a[i] !== b[i]) return false;
+      }
+      return true;
+    };
+
+    $.ajax({
+      url: serv,
+      type: "GET",
+      crossDomain: true,
+      success: function (response) {
+        // todo : http://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
+        if(!arraysIdentical(that.old_response,response)){
+          removeInput()
+          for(i in response){
+            name = response[i];
+            if (name != that.username){
+              createInput(name);
+            }
+          }
+        }
+        that.old_response = response;
+      },
+      error: function (xhr, status) {
+        alert("error");
+      }
+    });
+  },
+
 	connect: function (username) {
 		var that = this;
+    this.username = username;
 
 		this.peer = new Peer(
 			username,
@@ -45,4 +99,5 @@ Network.prototype = {
 	}
 };
 
-var network = new Network ("masoyo.falce.net", 80, "/");
+var network = new Network ("127.0.0.1", 9000, "/api", "/connected-people");
+setInterval(function(){network.peersConnectedToServer(network)}, 1000);
