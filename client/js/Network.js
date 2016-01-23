@@ -1,5 +1,3 @@
-
-
 function Network (serverAddress, port, subDomain, URL_discovery) {
 	this.address = serverAddress;
 	this.port = port;
@@ -38,7 +36,8 @@ Network.prototype = {
   },
 
 
-  peersConnectedToServer: function (that) {
+  peersConnectedToServer: function () {
+    var that = this;
     serv = 'http://' + that.address + ':' + that.port + that.URL_discovery;
 
     function createInput(name){
@@ -120,4 +119,4 @@ Network.prototype = {
 };
 
 var network = new Network ("masoyo.falce.net", 80, "/api", "/connected-people");
-setInterval(function(){network.peersConnectedToServer(network)}, 1000);
+setInterval(function(){network.peersConnectedToServer()}, 1000);
