@@ -48,6 +48,7 @@ Vue.prototype = {
 
 	changeStage: function (levelName) {
 		var that = this;
+		console.log ("stage: " + levelName);
 
 		// Modify the model through the controler
 		window.addEventListener ("levelLoaded", function (e) {
@@ -85,7 +86,10 @@ Vue.prototype = {
 		this.menu.addChild (square);
 		square.interactive = true;
 		square.click = function (data) {
-			that.changeStage ("easy");
+			to_send = {};
+			to_send.level = "easy";
+			network.sendData(to_send);
+			that.changeStage (to_send.level);
 		}
 
 		var easy = new PIXI.Text("Easy", {font:"28px Arial", fill:"white", align : 'center'});
@@ -101,7 +105,10 @@ Vue.prototype = {
 		this.menu.addChild (square);
 		square.interactive = true;
 		square.click = function (data) {
-			that.changeStage ("test");
+			to_send = {};
+			to_send.level = "test";
+			network.sendData(to_send);
+			that.changeStage (to_send.level);
 		}
 
 		var test = new PIXI.Text("Test", {font:"28px Arial", fill:"white", align : 'center'});
@@ -116,7 +123,8 @@ Vue.prototype = {
 		$("#sendUsername").click(function () {
 			var name = $("#username").val();
 			console.log(name);
-			network.connect(name);
+			network.connect2Server(name);
+			setTimeout (function () {network.askForPeer()}, 1000);
 		});
 	},
 

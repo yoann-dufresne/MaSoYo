@@ -24,52 +24,131 @@ function Input () {
 
 
 Input.prototype = {
-	gameControl: function () {
-		var that = this;
-		window.onkeydown = function (event) {
-			switch (event.keyCode) {
-				case 37:
-					if (!that.left)
-						that.leftTime = Date.now();
-					that.left = true;
-					break;
-				case 38:
-					if (!that.up)
-						that.upTime = Date.now();
-					that.up = true;
-					break;
-				case 39:
-					if (!that.right)
-						that.rightTime = Date.now();
-					that.right = true;
-					break;
-				case 40:
-					if (!that.down)
-						that.downTime = Date.now();
-					that.down = true;
-					break;
-				default:
-			}
-		}
 
-		window.onkeyup = function (event) {
-			switch (event.keyCode) {
-				case 37:
-					that.left = false;
-					break;
-				case 38:
-					that.up = false;
-					break;
-				case 39:
-					that.right = false;
-					break;
-				case 40:
-					that.down = false;
-					break;
-				default:
-			}
-		}
-	},
+  key_down: function(keycode){
+    var that = this;
+    switch (keycode) {
+      case 37:
+        if (!that.left)
+          that.leftTime = Date.now();
+        that.left = true;
+        break;
+      case 38:
+        if (!that.up)
+          that.upTime = Date.now();
+        that.up = true;
+        break;
+      case 39:
+        if (!that.right)
+          that.rightTime = Date.now();
+        that.right = true;
+        break;
+      case 40:
+        if (!that.down)
+          that.downTime = Date.now();
+        that.down = true;
+        break;
+      default:
+    }
+  },
+
+  key_up: function(keycode){
+    var that = this;
+    switch (keycode) {
+      case 37:
+        that.left = false;
+        break;
+      case 38:
+        that.up = false;
+        break;
+      case 39:
+        that.right = false;
+        break;
+      case 40:
+        that.down = false;
+        break;
+      default:
+    }
+  },
+
+
+  gameControl: function () {
+    var that = this;
+    window.onkeydown = function (event) {
+      network.sendData({"down":event.keyCode, state: "command"});
+      that.key_down(event.keyCode);
+    };
+
+    window.onkeyup = function (event) {
+      network.sendData({"up":event.keyCode, state: "command"});
+      that.key_up(event.keyCode);
+    }
+  },
+
+
+	// 	window.onkeydown = function (event) {
+	// 		switch (event.keyCode) {
+	// 			case 37:
+	// 				if (!that.left)
+	// 					that.leftTime = Date.now();
+	// 					network.sendData({command: "left", state:"down"})
+	// 				that.left = true;
+	// 				break;
+	// 			case 38:
+	// 				if (!that.up)
+	// 					that.upTime = Date.now();
+	// 					network.sendData({command: "up"})
+	// 				that.up = true;
+	// 				break;
+	// 			case 39:
+	// 				if (!that.right)
+	// 					that.rightTime = Date.now();
+	// 					network.sendData({command: "right"})
+	// 				that.right = true;
+	// 				break;
+	// 			case 40:
+	// 				if (!that.down)
+	// 					that.downTime = Date.now();
+	// 					network.sendData({command: "down"})
+	// 				that.down = true;
+	// 				break;
+	// 			default:
+	// 		}
+	// 	}
+
+	// 	window.onkeyup = function (event) {
+	// 		switch (event.keyCode) {
+	// 			case 37:
+	// 				that.left = false;
+	// 				break;
+	// 			case 38:
+	// 				that.up = false;
+	// 				break;
+	// 			case 39:
+	// 				that.right = false;
+	// 				break;
+	// 			case 40:
+	// 				that.down = false;
+	// 				break;
+	// 			default:
+	// 		}
+	// 	}
+	// },
+
+  startGame: function(key) {
+        if (!this.active) {
+          this.send_message({"start":key})
+        }
+        this.gameControl();
+        this.active = true;
+
+        var event = new Event('keydown');
+        event.keyCode = key;
+        window.dispatchEvent(event);
+
+        var event = new Event('levelStart');
+        window.dispatchEvent(event);
+  },
 
 	startScreenControl: function () {
 		var that = this;

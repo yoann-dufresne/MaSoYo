@@ -1,8 +1,7 @@
-function Network (serverAddress, port, subDomain, URL_discovery) {
+function Network (serverAddress, port, subDomain) {
 	this.address = serverAddress;
 	this.port = port;
 	this.subDomain = subDomain;
-  this.URL_discovery = URL_discovery
 
 	var that = this;
 }
@@ -13,15 +12,31 @@ Network.prototype = {
 	},
 
 	receiveData: function (data) {
+    var data = JSON.parse(data);
+    if(data.level){
+      console.log (data.level);
+      vue.changeStage (data.level);
+    }
+    if (data.state == "command"){
+      console.log(data.up || data.down)
+      if (data.up) {
+        //inputKeyboard.key_up(data.up);
+        window.onkeyup(data.up);
+      }
+      if (data.down) {
+        //inputKeyboard.key_down(data.down); 
+        window.onkeydown(data.down);
+      }
+    }
 		console.log (data);
 	},
 
-  connect_to_id: function(id_) {
-    console.log("connecting to id", id_);
+  connect_to_id: function(id) {
+    console.log("connecting to id", id);
     var that = this;
-    var c = this.peer.connect(id_);
+    var c = this.peer.connect(id);
     c.on('open', function() {
-      console.log("opened connection to", id_);
+      console.log("opened connection to", id);
     });
 
     c.on('data', that.receiveData);
@@ -35,10 +50,34 @@ Network.prototype = {
     });
   },
 
-
-  peersConnectedToServer: function () {
+  askForPeer: function () {
+    console.log("Asked for peer");
     var that = this;
-    serv = 'http://' + that.address + ':' + that.port + that.URL_discovery;
+    var serv = 'http://' + this.address + ':' + this.port + '/connect/' + this.username;
+    console.log(serv);
+
+    $.ajax({
+      url: serv,
+      type: "GET",
+      crossDomain: true,
+      success: function (response) {
+        if (!response.error) {
+          that.connect_to_id (response.data);
+          console.log(response.data);
+        } else {
+          setTimeout (function () {that.askForPeer()}, 1000);
+        }
+      },
+      error: function (xhr, status) {
+        alert("error");
+      }
+    });
+  },
+
+
+  /*peersConnectedToServer: function () {
+    var that = this;
+    var serv = 'http://' + that.address + ':' + that.port + that.URL_discovery;
 
     function createInput(name){
       var $input = $('<input type="button" value=' + name + ' />').click(function () {
@@ -87,9 +126,9 @@ Network.prototype = {
         alert("error");
       }
     });
-  },
+  },/**/
 
-	connect: function (username) {
+	connect2Server: function (username) {
 		var that = this;
     this.username = username;
 
@@ -118,5 +157,8 @@ Network.prototype = {
 	}
 };
 
-var network = new Network ("masoyo.falce.net", 80, "/api", "/connected-people");
-setInterval(function(){network.peersConnectedToServer()}, 1000);
+var network = new Network ("192.168.1.27", 1414, "/api");
+//network.askForPeer();
+// setInterval(function(){network.peersConnectedToServer()}, 1000);
+
+
